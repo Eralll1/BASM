@@ -1,0 +1,77 @@
+opcode opname  argc
+
+# if ARG is 
+
+# 01        %ax      - register value
+
+# 10        &ax      - memory used (address is register value)
+
+# 11        P        - stack used
+#                      if it is used as ARG1 or ARG2 stacked is poped
+#                      else top of the stack (nondestructive reading) is passed
+#                      the resualt is pushed to the stack 
+
+# 00        number   - it is used as constant
+#           $        - position of the label is used
+#                      $label is replaced in compile-time so its value is used as constant 
+#           "a"      - char code is substituted by compiler
+#           "/n"     - use "/" (NOT "\" !!!) for escape seq
+
+# 
+
+# ARG3 is where resualt will be put
+# if ARG3 is number it is not put any where
+
+# special compile-time 
+
+0000_0000     EOF     # marks end of an executable 
+0000_0001     ERR     # invalid opcode \ opname
+0000_0010     EMPTY   # ignored by compiler 
+
+# run control
+
+0001_0000     NOPE    # do nothing
+0001_0001     J_ALW   # jmp always
+0001_0010     J_EQ    # jmp if ARG1 == ARG2
+0001_0011     J_GT    # jmp if ARG1 >  ARG2
+0001_0100     J_LT    # jmp if ARG1 <  ARG2
+0001_0101     J_GE    # jmp if ARG1 >= ARG2
+0001_0110     J_LE    # jmp if ARG1 <= ARG2
+0001_0111     J_NEQ   # jmp if ARG1 != ARG2
+0001_1000     CALL    # push return address to func_stack and jmp to ARG1
+0001_1001     RET     # pop from func_stack and jmp to it
+0001_1010     HALT    # freeze the proccessor
+
+# memory control
+
+0010_0000     MOVE    # copies value from ARG1 to ARG3
+
+# arithmetic
+
+0011_0000     ADD     # adds       ARG1 and  ARG2 and puts in ARG3
+0011_0001     SUB     # sutracts   ARG2 from ARG1 and puts in ARG3
+0011_0010     DIV     # divedes    ARG1 by   ARG2 and puts in ARG3
+0011_0011     MULT    # miltiplies ARG1 and  ARG2 and puts in ARG3
+
+0011_0100     SQRT    # works ONLY with FP
+0011_0101     TO_FP   # converts ARG1 (WH) numbers FP
+0011_0110     TO_WH   # converts FP numbers WH
+
+0011_1000     AND
+0011_1001     OR
+0011_1010     XOR
+
+0011_1011     MOD     # get remainder
+
+# IO
+
+0100_0000     INP     # puts value from stdin to ARG3
+0100_0001     PR_WH   # prints ARG1 as int
+0100_0010     PR_CH   # prints ARG1 as char
+0100_0011     PR_FP   # prints ARG1 treated as fixed-point number
+
+# Graphics
+
+0101_0000     INIT_SCREEN  # call ONLY ONCE to init init screen ARG1 is used to cap FPS
+0101_0001     DRAW         # call to draw current ram state (call only after drawing the full frame)
+0101_0010     KILL_SCREEN  # call to close the window  

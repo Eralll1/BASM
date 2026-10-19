@@ -1,0 +1,16 @@
+# Build output
+objects/
+better
+asm_main
+venv/
+
+# Non importat
+*.stl
+*.out
+*.mp4
+
+# editor / OS junk
+.vscode/
+.cache/
+*.swp
+.DS_Store
