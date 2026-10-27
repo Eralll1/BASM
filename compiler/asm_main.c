@@ -1,6 +1,10 @@
 #include "asm.h"
 #include "helper.h"
 
+
+// Needed as asm.c is linked in better.c for code_free
+
+
 int main(int argc, char* argv[]) {
     
     cmd_args args = parse_args(argc, argv);
@@ -11,7 +15,11 @@ int main(int argc, char* argv[]) {
 
     FILE* output = (args.output_filename == NULL) ? stdout : fopen(args.output_filename, "w");
     if (ERR_STATE != ASM_OK){
-        printf("Some error: <%d> at line <%zu>\n", ERR_STATE, ERR_LINE);
+        if (ERR_LINE_TXT != NULL){
+            printf("Some error: <%d> at line <%zu>:<%s>\n", ERR_STATE, ERR_LINE, ERR_LINE_TXT);
+        } else {
+            printf("Some error: <%d> at line <%zu>\n", ERR_STATE, ERR_LINE);
+        }
         return 1;
     }
     

@@ -35,7 +35,7 @@ typedef enum {
 
 typedef struct {
     Stack data_stack;
-    Stack func_stack;
+    Stack return_stack;
     word registers[REGISTERCOUNT];
     Code exe;
     size_t programm_counter;

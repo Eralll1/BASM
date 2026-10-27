@@ -97,7 +97,7 @@ word __spu__j_neq(word arg1, word arg2, word arg3, Proccesor* proc){
 word __spu__call    (word arg1, word arg2, word arg3, Proccesor* proc){
     if (_is_invalid_jmp_location(arg1, proc)) return 0;
 
-    stack_push(&proc->func_stack, proc->programm_counter+1);
+    stack_push(&proc->return_stack, proc->programm_counter+1);
 
     proc->state = PROC_JUMPED;
     proc->programm_counter = arg1;
@@ -106,7 +106,7 @@ word __spu__call    (word arg1, word arg2, word arg3, Proccesor* proc){
 
 }
 word __spu__ret     (word arg1, word arg2, word arg3, Proccesor* proc){
-    word ret_addr = stack_pop(&proc->func_stack);
+    word ret_addr = stack_pop(&proc->return_stack);
     if (_is_invalid_jmp_location(ret_addr, proc)) return 0;
 
     proc->state = PROC_JUMPED;

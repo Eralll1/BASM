@@ -221,7 +221,7 @@ Proccesor processor_create(){
 
     Proccesor res = {
         .data_stack = data_stack,
-        .func_stack = func_stack,
+        .return_stack = func_stack,
         .exe = {},
         .registers = {},
         .programm_counter = 0,
@@ -232,7 +232,7 @@ Proccesor processor_create(){
 
 void processor_free(Proccesor* processor){
     stack_free(&processor->data_stack);
-    stack_free(&processor->func_stack);
+    stack_free(&processor->return_stack);
     code_free(&processor->exe);
 }
 

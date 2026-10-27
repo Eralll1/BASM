@@ -1,14 +1,3 @@
-#!/usr/bin/env python3
-"""Video -> per-frame delta lists of (x, y) pixels to toggle.
-
-Frame 0 starts from all-black (all-zero). Each subsequent frame is the set of
-pixels whose value differs from the previous frame. Toggle semantics:
-applying a frame flips fb[y*W + x] for every (x, y) in that frame.
-
-This module does NOT write a file. It returns (or yields) Python data.
-Use write_c_header() if you later want to embed the data into your C program.
-"""
-
 import subprocess
 from pathlib import Path
 

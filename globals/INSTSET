@@ -1,27 +1,5 @@
 opcode opname  argc
 
-# if ARG is 
-
-# 01        %ax      - register value
-
-# 10        &ax      - memory used (address is register value)
-
-# 11        P        - stack used
-#                      if it is used as ARG1 or ARG2 stacked is poped
-#                      else top of the stack (nondestructive reading) is passed
-#                      the resualt is pushed to the stack 
-
-# 00        number   - it is used as constant
-#           $        - position of the label is used
-#                      $label is replaced in compile-time so its value is used as constant 
-#           "a"      - char code is substituted by compiler
-#           "/n"     - use "/" (NOT "\" !!!) for escape seq
-
-# 
-
-# ARG3 is where resualt will be put
-# if ARG3 is number it is not put any where
-
 # special compile-time 
 
 0000_0000     EOF     # marks end of an executable 

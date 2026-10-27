@@ -9,6 +9,12 @@ static Instr  err_res_inst      = {};
 static Instr  empty_res_inst    = {};
 static Instr  end_instr         = {};
 
+
+word _resolve_label(char* dest,  Label labels[MAXLABELCOUNT]);
+word _resolve_register(char* name);
+FLAG _resolve_arg(word* arg_val, char* arg, Label labels[MAXLABELCOUNT]);
+word _resolve_char(char* text);
+
 void fill_labels(parsedFile* input, Label* labels){
 
     size_t table_ind    = 0;
@@ -204,6 +210,7 @@ Instr parse_instr_sscanfed(char* line, Label labels[MAXLABELCOUNT], size_t line_
     
 }
 */
+ 
 Instr parse_instr(char* line, Label labels[MAXLABELCOUNT], size_t line_ind){
 
     char name[MAXOPNAME]    = {};
@@ -239,6 +246,8 @@ Instr parse_instr(char* line, Label labels[MAXLABELCOUNT], size_t line_ind){
         if (can_be_name(line[ind]) || is_in_quotes || line[ind] == '"'){
             if ((parse_step == PR_NAME && buffer_ind > MAXOPNAME) || (parse_step != PR_NAME && buffer_ind > MAXARGLENGTH)){
                 ERR_STATE = ASM_TOKEN_TOO_LONG;
+                ERR_LINE = line_ind;
+                ERR_LINE_TXT = line;
                 return err_res_inst;
 
             }
@@ -262,6 +271,7 @@ Instr parse_instr(char* line, Label labels[MAXLABELCOUNT], size_t line_ind){
                     break;
                 case PR_NOTHING:
                     ERR_LINE = line_ind;
+                    ERR_LINE_TXT = line;
                     ERR_STATE = ASM_INVALID_COMMAND;
                     return err_res_inst;
 
@@ -271,6 +281,7 @@ Instr parse_instr(char* line, Label labels[MAXLABELCOUNT], size_t line_ind){
 
         
         ERR_LINE = line_ind;
+        ERR_LINE_TXT = line;
         ERR_STATE = ASM_INVALID_CHARACTER;
         return err_res_inst;
     }
@@ -283,6 +294,7 @@ Instr parse_instr(char* line, Label labels[MAXLABELCOUNT], size_t line_ind){
 
     if (real_res.opcode == err_res_inst.opcode){
         ERR_STATE = ASM_INVALID_COMMAND;
+        ERR_LINE_TXT = line;
         ERR_LINE = line_ind;
         return err_res_inst;
     }
@@ -292,6 +304,7 @@ Instr parse_instr(char* line, Label labels[MAXLABELCOUNT], size_t line_ind){
     real_res.flags.arg3 = _resolve_arg(&real_res.arg3, arg3, labels);
 
     if (ERR_STATE != ASM_OK){
+        ERR_LINE_TXT = line;
         ERR_LINE = line_ind;
         return err_res_inst;
     }

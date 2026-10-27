@@ -1,0 +1,66 @@
+
+## TODO
+
+1 errors                                            +
+
+2 code checks
+
+3 the whole proccessor to struct + functions        +
+
+4 JB(<) JA(>) JE(==) JAE(>=) JBE(<=) JNE(!=)        +
+
+5 processor dump
+
+6 no dup labels                                     +
+
+7 tab at start?                                     +
+
+8 check invalid jmp address                         +
+
+9 # -> ;                                            + both are supported
+
+10 printf before scanf                              +
+
+11 output as char                                   +
+
+12 invalid input crash                              +
+
+13 registers - names                                +
+
+14 prototypes!                                      +
+
+15 RAM address in processor struct and const SIZE   +
+
+16 syscalls <- input \ output \ draw                - declined
+
+17 scanf                                            + 
+
+18 print compiler errors                            + (fixed some small issue, when ERR intruction was not considered as an error)
+
+19 parse_instruction is too Fucking big
+
+20 ERR_LINE_TXT                                     ~
+
+21 disable JMP to 0 to prevent errors
+
+22 compilator can generate makefiles
+
+23 warnings about generators.py
+
+24 syntax errors !!
+
+25 Исходник + видео + звук (синхрон)                +
+
+26 разные регистры под разные типы
+
+27 google union
+
+28 stack of labels
+
+29 makefile other compilations flags (-D_DEBUG)
+
+30 rename generated files (operations.c)
+
+31 binsearch in get_opcode_by_name
+
+32 split ram into regular ram and video ram

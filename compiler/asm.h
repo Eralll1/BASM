@@ -42,15 +42,16 @@ typedef enum {
 
 extern ASM_ERROR ERR_STATE;
 extern size_t    ERR_LINE;
+extern char*     ERR_LINE_TXT;
 
+Instr parse_instr(char* line, Label labels[MAXLABELCOUNT], size_t line_ind);
+
+// private maybe..? (static)
+void cut_comments(parsedFile* input);
 void fill_labels(parsedFile* input, Label* labels);
 void check_and_init_consts();
 
-word _resolve_label(char* dest,  Label labels[MAXLABELCOUNT]);
-word _resolve_register(char* name);
-FLAG _resolve_arg(word* arg_val, char* arg, Label labels[MAXLABELCOUNT]);
 
-Instr parse_instr(char* line, Label labels[MAXLABELCOUNT], size_t line_ind);
 
 Code code_fill(parsedFile* input);
 void code_save_as_bin(Code to_save, FILE* output);

@@ -4,6 +4,7 @@ CFLAGS = -Wall -Wextra -I/usr/local/include -g -fsanitize=address,undefined
 LIBS = -lm -lraylib -lGL -lpthread -ldl -lrt -lX11
 
 
+
 better: objects/better.o \
 		objects/mylib.o \
 		objects/read_file.o \
@@ -81,6 +82,8 @@ globals/operations.c: globals/INSTSET \
 .PHONY: clean all
 
 clean:
-	rm -rf objects/*.o && rm better asm_main test
+	rm -rf objects/*.o && \
+	rm *.out && \
+	rm better asm)main
 
 all: better asm_main
